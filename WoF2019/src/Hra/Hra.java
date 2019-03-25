@@ -128,9 +128,6 @@ public class Hra  {
             case "vytvorPortal":
                 this.vytvorPortal(prikaz);
                 return false;
-            case "sekniDvere":
-                this.sekniDvere(prikaz);
-                return false;
             case "pozriDvere":
                 this.pozriDvere(prikaz);
                 return false;
@@ -141,7 +138,7 @@ public class Hra  {
         Miestnost miestnost = this.hrac.getAktualnaMiestnost();
         
         if (miestnost instanceof IPrikaz) {
-            boolean success = ((IPrikaz) miestnost).pouzi(prikaz);
+            boolean success = ((IPrikaz) miestnost).pouzi(prikaz, this.hrac);
             if (success) {
                 return false;
             }
@@ -149,7 +146,7 @@ public class Hra  {
         Collection<IDvere> dvereMiestnosti = miestnost.getVsetkyDvere();
         for (IDvere dvere : dvereMiestnosti) {
             if (dvere instanceof IPrikaz) {
-                boolean success = ((IPrikaz) dvere).pouzi(prikaz);
+                boolean success = ((IPrikaz) dvere).pouzi(prikaz, this.hrac);
                 if (success) {
                     return false;
                 }
@@ -158,7 +155,7 @@ public class Hra  {
         Collection<Item> itemyHraca = this.hrac.getInventar().getVsetkyItemy();
         for (Item item : itemyHraca) {
             if (item instanceof IPrikaz) {
-                boolean success = ((IPrikaz) item).pouzi(prikaz);
+                boolean success = ((IPrikaz) item).pouzi(prikaz, this.hrac);
                     if (success) {
                         return false;
                     }
@@ -360,44 +357,7 @@ public class Hra  {
     */
         
     
-    private void sekniDvere(Prikaz prikaz){
-       //mam sekeru
-        Item item = this.hrac.getInventar().getItem("sekera");
-        if (item == null) {
-            System.out.println("Hrac nema sekeru.");
-            return;
-        }
-        if (item instanceof Sekera) {
-            Sekera sekera = (Sekera) item;
-            //existuju dvere
-            String nazovDveri = prikaz.getParameter();
-        
-            IDvere dvere = this.hrac.getAktualnaMiestnost().getDvere(nazovDveri);
-            if (dvere == null) {
-                System.out.println("Dvere sa nenasli.");
-                return;
-            }
-            //su rozbite dvere
-            if (dvere.getSilaMaterialu() == 0) {
-                System.out.println("Dvere su uz davno rozbite.");
-                return;
-            } else { 
-                //zniz silu dveri
-                System.out.println("Uspesne si posteklil dvere.");
-                dvere.znizSiluMaterialu(sekera.getPoskodenie());
-                //pouzi sekeru
-                sekera.pouzi();
-                //je sekera znicena? = vymaz ju
-                if (sekera.getPocetPouziti() == 0) {
-                    this.hrac.getInventar().vyberItem("sekera");
-                }
-            }
-           
-        } else {
-            System.out.println("Hrac ma item co sa vola sekera ale nie je sekerou: Nema sa nikdy stat.");
-            return;
-        }
-    }
+    
     
     public String pozriDvere(Prikaz prikaz) {
         String nazovDveri = prikaz.getParameter();

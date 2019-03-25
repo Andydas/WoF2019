@@ -5,12 +5,14 @@
  */
 package Hra;
 
+import Hrac.Hrac;
+
 /**
  *
  * @author drzik2
  */
 public interface IPrikaz {
-    boolean pouzi(Prikaz prikaz);
+    boolean pouzi(Prikaz prikaz, Hrac hrac);
     boolean jePrikaz(String nazov);
     void vypisPrikazy();
 }
