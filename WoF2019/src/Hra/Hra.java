@@ -135,8 +135,38 @@ public class Hra  {
                 this.pozriDvere(prikaz);
                 return false;
             default:
-                return false;
+                break;
         }
+        
+        Miestnost miestnost = this.hrac.getAktualnaMiestnost();
+        
+        if (miestnost instanceof IPrikaz) {
+            boolean success = ((IPrikaz) miestnost).pouzi(prikaz);
+            if (success) {
+                return false;
+            }
+        }
+        Collection<IDvere> dvereMiestnosti = miestnost.getVsetkyDvere();
+        for (IDvere dvere : dvereMiestnosti) {
+            if (dvere instanceof IPrikaz) {
+                boolean success = ((IPrikaz) dvere).pouzi(prikaz);
+                if (success) {
+                    return false;
+                }
+            }
+        }
+        Collection<Item> itemyHraca = this.hrac.getInventar().getVsetkyItemy();
+        for (Item item : itemyHraca) {
+            if (item instanceof IPrikaz) {
+                boolean success = ((IPrikaz) item).pouzi(prikaz);
+                    if (success) {
+                        return false;
+                    }
+            }
+        }
+        
+        return false;
+        
     }
 
     // implementacie prikazov:

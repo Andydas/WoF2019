@@ -51,6 +51,8 @@ public class Parser {
                 // vsimnite si, ze zbytok textu sa ignoruje
             }
         }
+        
+        //carymary z cvika 
         boolean najdeny = this.prikazy.jePrikaz(prikaz);
         if (!najdeny) {
             Miestnost miestnost = this.hrac.getAktualnaMiestnost();
