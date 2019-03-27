@@ -3,6 +3,7 @@ package Hrac;
 import Hra.Hra;
 import Hra.Miestnost;
 import Itemy.PortalGun;
+import NPC.NPC;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,6 +20,7 @@ public class Hrac {
     private Miestnost aktualnaMiestnost;
     private Inventar inventar;
     private PortalGun portalGun;
+    private NPC aktualneNPC;
     
     
     public Hrac(Hra hra, Miestnost aktualnaMiestnost) {
@@ -26,6 +28,7 @@ public class Hrac {
         this.aktualnaMiestnost = aktualnaMiestnost;
         this.inventar = new Inventar();
         portalGun = PortalGun.getPortalGun();
+        this.aktualneNPC = null;
     }
     
     public Miestnost getAktualnaMiestnost() {
@@ -57,5 +60,13 @@ public class Hrac {
     
     public void vytvorPortal(String farba) {
         this.portalGun.vytvorPortal(this.getAktualnaMiestnost(), farba);
+    }
+    
+    public NPC getAktualneNPC() {
+        return aktualneNPC;
+    } 
+    
+    public void setAktualneNPC (NPC aktualneNPC) {
+        this.aktualneNPC = aktualneNPC;
     }
 }

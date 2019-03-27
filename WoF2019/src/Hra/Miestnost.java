@@ -3,6 +3,7 @@ package Hra;
 
 import Dvere.IDvere;
 import Itemy.Item;
+import NPC.NPC;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -23,6 +24,7 @@ public class Miestnost {
     private String popisMiestnosti;
     private HashMap<String, IDvere> vychody;
     private HashMap<String, Item> itemy;
+    private HashMap<String, NPC> npc;
     private boolean maPortal;
     /**
      * Vytvori miestnost popis ktorej je v parametrom.
@@ -35,6 +37,7 @@ public class Miestnost {
         this.nazovMiestnosti = nazov;
         this.popisMiestnosti = popis;
         this.vychody = new HashMap<>();
+        this.npc = new HashMap<>();
         this.itemy = null;
         this.maPortal = false;
     }
@@ -49,6 +52,14 @@ public class Miestnost {
     
     public void odstranVychod(IDvere dvere) {
         this.vychody.remove(dvere.dajDruhuMiestnost(this).nazovMiestnosti, dvere);
+    }
+    
+    public void pridajNPC(NPC npc) {
+        this.npc.put(npc.getMeno(), npc);
+    }
+    
+    public NPC getNPC (String meno) {
+        return this.npc.get(meno);
     }
 
     /**

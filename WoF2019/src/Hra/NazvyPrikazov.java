@@ -13,7 +13,7 @@ package Hra;
 public class NazvyPrikazov {
     // konstantne pole nazvov prikazov
     private static final String[] PLATNE_PRIKAZY = {
-        "chod", "ukonci", "pomoc", "teleport", "pozri", "zober", "vypisInventar", "pouziKluc", "vytvorPortal", "pozriDvere"
+        "chod", "ukonci", "pomoc", "teleport", "pozri", "zober", "vypisInventar","vytvorPortal", "pozriDvere"
     };
 
     /**

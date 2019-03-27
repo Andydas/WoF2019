@@ -122,9 +122,6 @@ public class Hra  {
             case "vypisInventar":
                 this.vypisInventar(prikaz);
                 return false;
-            case "pouziKluc":
-                this.pouziKluc(prikaz);
-                return false;
             case "vytvorPortal":
                 this.vytvorPortal(prikaz);
                 return false;
@@ -290,28 +287,7 @@ public class Hra  {
         this.hrac.getInventar().vypisItemy();
     }
     
-    private void pouziKluc(Prikaz prikaz) {
-        if (!prikaz.maParameter()) {
-            // ak prikaz nema parameter - druhe slovo - nevedno kam ist
-            System.out.println("Nenapisal si meno dveri.");
-            return;
-        }
-        
-        String nazovDveri = prikaz.getParameter();
-        
-        IDvere dvere = this.hrac.getAktualnaMiestnost().getDvere(nazovDveri);
-        if (dvere == null) {
-            System.out.println("Dvere sa nenasli.");
-            return;
-        }
-        
-        if (dvere instanceof ZamykatelneDvere) {
-            ((ZamykatelneDvere) dvere).pouziKluc(hrac);
-        } else {
-            System.out.println("Dvere nie su zamykatelne.");
-            return;
-        }
-    }
+    
     
     private void vytvorPortal(Prikaz prikaz){
         
@@ -326,13 +302,10 @@ public class Hra  {
             this.hrac.vytvorPortal(farbaPortalu);
         } else {
             System.out.println("PortalGun je iba rozpravka pre male deti.");
-        }
-        
-        
-        
+        } 
     }
     
-    /*
+    /* to dole je blbost
     private void sekniDvere(Prikaz prikaz){
         if (!prikaz.maParameter()) {
             // ak prikaz nema parameter - druhe slovo - nevedno kam ist
@@ -355,9 +328,6 @@ public class Hra  {
             System.out.println("Chces si dolamat ruky? Najskor potrebujes sekeru.");
     }
     */
-        
-    
-    
     
     public String pozriDvere(Prikaz prikaz) {
         String nazovDveri = prikaz.getParameter();

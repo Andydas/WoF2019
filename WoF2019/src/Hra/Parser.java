@@ -68,7 +68,7 @@ public class Parser {
                             break;
                         }
                     }
-                }   
+                }  
             }
             if (!najdeny) {
                 Collection<Item> itemyHraca = this.hrac.getInventar().getVsetkyItemy();
@@ -84,7 +84,7 @@ public class Parser {
         } 
         
         // kontrola platnosti prikazu   
-        if (this.prikazy.jePrikaz(prikaz)) {
+        if (najdeny) {
             // vytvori platny prikaz
             return new Prikaz(prikaz, parameter);
         } else {

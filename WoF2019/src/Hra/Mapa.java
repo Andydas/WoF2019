@@ -124,7 +124,7 @@ public class Mapa {
         //vychod labak
         labak.nastavVychod(terasaLabak);
         ZamykatelneDvere labakKancelaria =
-                new ZamykatelneDvere(labak, kancelaria, "kanca", "Bez kluca neprejdes.", 0);
+                new ZamykatelneDvere(labak, kancelaria, "kanca", "Bez kluca neprejdes.", 2);
         labak.nastavVychod(labakKancelaria);
         labak.nastavVychod(chodbaChill);
         labak.nastavVychod(chillLabak);
