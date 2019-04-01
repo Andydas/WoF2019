@@ -16,9 +16,11 @@ import Hrac.Hrac;
 public class NPC implements IPrikaz{
 
     private String meno;  
+    private String privitanie;
     
-    public NPC(String meno) {
+    public NPC(String meno, String privitanie) {
         this.meno = meno;
+        this.privitanie = privitanie;
     }
 
     public String getMeno() {
@@ -35,6 +37,7 @@ public class NPC implements IPrikaz{
                 return true;
             }
             hrac.setAktualneNPC(npc);
+            npc.vypisPrivitanie();
             npc.vypisPrikazyNPC();
             return true;
         }
@@ -45,12 +48,16 @@ public class NPC implements IPrikaz{
  
     @Override
     public boolean jePrikaz(String nazov) {
-        return nazov.equals("hovor");
+        return nazov.equals("hovor");               
     }
 
     @Override
     public void vypisPrikazy() {
         System.out.println("hovor");
+    }
+    
+    public void vypisPrivitanie() {
+        System.out.println(this.privitanie);
     }
     
     public void vypisPrikazyNPC() {
@@ -61,7 +68,13 @@ public class NPC implements IPrikaz{
         return nazov.equals("nehovor");
     }
     
+    
     public boolean pouziPrikazNPC(Prikaz prikaz, Hrac hrac) {
+        switch(prikaz.getNazov()) {
+            case "nehovor": 
+                hrac.setAktualneNPC(null);
+                return true;
+        }
         return false;
     }
 }

@@ -10,6 +10,7 @@ import Itemy.ISIC;
 import Itemy.Kluc;
 import Itemy.PortalGun;
 import Itemy.Sekera;
+import NPC.NPC;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -149,6 +150,11 @@ public class Mapa {
         Item sekera = new Sekera("sekera", "Sekera urcena na sekanie.", 0, 2, 10);
         itemyBufetu.put(sekera.getNazov(), sekera);
         bufet.pridajItemy(itemyBufetu);
+        
+        //NPCcka
+        
+        NPC vratnik = new NPC("vratnik", "Neotravuj");
+        vratnica.pridajNPC(vratnik);
     }
     
     public Miestnost getMiestnost(String nazov) {

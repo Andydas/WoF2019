@@ -61,6 +61,10 @@ public class Miestnost {
     public NPC getNPC (String meno) {
         return this.npc.get(meno);
     }
+    
+    public Collection<NPC> getVsetkyNPC() {
+        return this.npc.values();
+    }
 
     /**
      * @return textovy popis miestnosti.
@@ -94,6 +98,7 @@ public class Miestnost {
     public void vypisItemy() {
         if (this.itemy == null)
             return;
+        System.out.print("V miestnosti su tieto itemy: ");
         for (Item item : this.itemy.values()) {
             System.out.print(item.getNazov() + " ");
         }
@@ -106,5 +111,16 @@ public class Miestnost {
     
     public Collection<IDvere> getVsetkyDvere() {
         return this.vychody.values();
+    }
+
+    void vypisNPC() {
+        if (this.npc == null) {
+            return;
+        }
+        for (String npc : this.npc.keySet()) {
+            System.out.print("V miestnosti sa tiez nachadza: ");
+            System.out.print(npc + "");
+            System.out.println("");
+        }
     }
 }

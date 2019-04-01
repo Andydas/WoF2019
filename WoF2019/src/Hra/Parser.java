@@ -3,6 +3,7 @@ package Hra;
 import Dvere.IDvere;
 import Hrac.Hrac;
 import Itemy.Item;
+import NPC.NPC;
 import java.util.Collection;
 import java.util.Scanner;
 
@@ -35,7 +36,14 @@ public class Parser {
      * @return prikaz zadany hracom
      */
     public Prikaz nacitajPrikaz() {
-        System.out.print("> ");     // vyzva pre hraca na zadanie prikazu
+        
+        NPC aktualneNPC = this.hrac.getAktualneNPC();
+        if (aktualneNPC != null) {
+            System.out.print("> * ");     // vyzva pre hraca na zadanie prikazu
+        } else {
+            System.out.print("> ");     // vyzva pre hraca na zadanie prikazu
+        }
+        
 
         String vstupnyRiadok = this.citac.nextLine();
 
@@ -51,8 +59,24 @@ public class Parser {
                 // vsimnite si, ze zbytok textu sa ignoruje
             }
         }
+       
+        //aby nepadol program enterom(mozno by bolo dobre vychytat)
+        if (prikaz == null) {
+            return new Prikaz(null, parameter);
+        }
         
-        //carymary z cvika 
+        
+        if (aktualneNPC != null) {
+            if (aktualneNPC.jePrikazNPC(prikaz)) {
+                return new Prikaz(prikaz, parameter);
+            } else {
+                // vytvori neplatny - "neznamy" prikaz
+                return new Prikaz(null, parameter); 
+            }
+            
+        }
+        
+        //chárymáry from cvitchenia
         boolean najdeny = this.prikazy.jePrikaz(prikaz);
         if (!najdeny) {
             Miestnost miestnost = this.hrac.getAktualnaMiestnost();
@@ -71,6 +95,17 @@ public class Parser {
                 }  
             }
             if (!najdeny) {
+                Collection<NPC> npcMiestnosti = miestnost.getVsetkyNPC();
+                for (NPC npc : npcMiestnosti) {
+                    if (npc instanceof IPrikaz) {
+                        najdeny = ((IPrikaz) npc).jePrikaz(prikaz);
+                        if (najdeny) {
+                            break;
+                        }
+                    }
+                }
+            }
+            if (!najdeny) {
                 Collection<Item> itemyHraca = this.hrac.getInventar().getVsetkyItemy();
                 for (Item item : itemyHraca) {
                     if (item instanceof IPrikaz) {
@@ -81,6 +116,11 @@ public class Parser {
                     }
                 }
             }
+            
+           
+            
+        
+                
         } 
         
         // kontrola platnosti prikazu   

@@ -7,6 +7,7 @@ import Hrac.Hrac;
 import Itemy.Item;
 import Itemy.PortalGun;
 import Itemy.Sekera;
+import NPC.NPC;
 import java.util.Collection;
 import java.util.Random;
 
@@ -100,6 +101,11 @@ public class Hra  {
         }
 
         String nazovPrikazu = prikaz.getNazov();
+        NPC aktualneNPC = this.hrac.getAktualneNPC();
+        if (aktualneNPC != null) {
+            aktualneNPC.pouziPrikazNPC(prikaz, hrac);
+            return false;
+        }
         
         switch (nazovPrikazu) {
             case "pomoc":
@@ -158,6 +164,15 @@ public class Hra  {
                     }
             }
         }
+        Collection<NPC> npcMiestnosti = miestnost.getVsetkyNPC();
+        for (NPC npc : npcMiestnosti) {
+            if (npc instanceof IPrikaz) {
+                boolean success = ((IPrikaz) npc).pouzi(prikaz, this.hrac);
+                if (success) {
+                        return false;
+                    }
+            }
+        }
         
         return false;
         
@@ -188,6 +203,12 @@ public class Hra  {
         for (Item item : itemyHraca) {
             if (item instanceof IPrikaz) {
                 ((IPrikaz) item).vypisPrikazy();
+            }
+        }
+        Collection<NPC> npcMiestnosti = miestnost.getVsetkyNPC();
+        for (NPC npc : npcMiestnosti) {
+            if (npc instanceof IPrikaz) {
+                ((IPrikaz) npc).vypisPrikazy();
             }
         }
         
@@ -265,6 +286,7 @@ public class Hra  {
 
     private void pozri(Prikaz prikaz) {
         this.hrac.getAktualnaMiestnost().vypisItemy();
+        this.hrac.getAktualnaMiestnost().vypisNPC();
     }
     
     private void zober(Prikaz prikaz) {
