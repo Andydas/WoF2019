@@ -173,7 +173,6 @@ public class Hra  {
                     }
             }
         }
-        
         return false;
         
     }

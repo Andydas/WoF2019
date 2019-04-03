@@ -1,5 +1,6 @@
 package Hrac;
 
+import Itemy.Inventar;
 import Hra.Hra;
 import Hra.Miestnost;
 import Itemy.PortalGun;

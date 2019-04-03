@@ -11,6 +11,7 @@ import Itemy.Kluc;
 import Itemy.PortalGun;
 import Itemy.Sekera;
 import NPC.NPC;
+import NPC.Predavac;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -155,6 +156,10 @@ public class Mapa {
         
         NPC vratnik = new NPC("vratnik", "Neotravuj");
         vratnica.pridajNPC(vratnik);
+        
+        Predavac bufetarka = new Predavac("bufetarka", "Kupuj a nevypytuj sa.");
+        bufet.pridajNPC(bufetarka);
+        bufetarka.pridajItem(sekera);
     }
     
     public Miestnost getMiestnost(String nazov) {
