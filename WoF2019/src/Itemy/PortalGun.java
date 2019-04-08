@@ -26,7 +26,7 @@ public class PortalGun extends Item {
     } 
     
     public PortalGun(String nazov, String popis, int cena) {
-        super(nazov, popis, 0);
+        super(nazov, popis, 0, SlotyVybavy.NIC);
         this.modry = null;
         this.oranzovy = null;
         PortalGun.portalGun = this;

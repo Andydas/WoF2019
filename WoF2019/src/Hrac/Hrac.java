@@ -20,6 +20,7 @@ public class Hrac {
     private Hra hra;
     private Miestnost aktualnaMiestnost;
     private Inventar inventar;
+    private InventarHraca inventarHraca;
     private PortalGun portalGun;
     private NPC aktualneNPC;
     
@@ -28,6 +29,7 @@ public class Hrac {
         this.hra = hra;
         this.aktualnaMiestnost = aktualnaMiestnost;
         this.inventar = new Inventar();
+        this.inventarHraca = new InventarHraca();
         portalGun = PortalGun.getPortalGun();
         this.aktualneNPC = null;
     }
@@ -56,7 +58,11 @@ public class Hrac {
     }
 
     public Inventar getInventar() {
-        return inventar;
+        return this.inventar;
+    }   
+    
+    public InventarHraca getInventarHraca() {
+        return this.inventarHraca;
     }   
     
     public void vytvorPortal(String farba) {

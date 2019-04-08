@@ -7,6 +7,7 @@ import Hrac.Hrac;
 import Itemy.Item;
 import Itemy.PortalGun;
 import Itemy.Sekera;
+import Itemy.SlotyVybavy;
 import NPC.NPC;
 import java.util.Collection;
 import java.util.Random;
@@ -133,6 +134,9 @@ public class Hra  {
                 return false;
             case "pozriDvere":
                 this.pozriDvere(prikaz);
+                return false;
+            case "oblec":
+                this.oblecItem(prikaz);
                 return false;
             default:
                 break;
@@ -354,6 +358,20 @@ public class Hra  {
         String nazovDveri = prikaz.getParameter();
         IDvere dvere = this.hrac.getAktualnaMiestnost().getDvere(nazovDveri);
         return dvere.getPopis();
+    }
+
+    private void oblecItem(Prikaz prikaz) {
+        String nazovItemu = prikaz.getParameter();
+        Item item = this.hrac.getInventar().getItem(nazovItemu);
+        if (item == null) {
+            System.out.println("Item nebol najdeny");
+            return;
+        }
+        if (item.getSlot() == SlotyVybavy.NIC) {
+            System.out.println("Item sa neda obliect");
+            return;
+        }
+        this.hrac.getInventarHraca().oblecItem(item);
     }
 
         

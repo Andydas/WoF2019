@@ -19,7 +19,7 @@ public class Kluc extends Item implements IPrikaz{
     
 
     public Kluc(String nazov, String popis, int cena) {
-        super (nazov, popis, cena);
+        super (nazov, popis, cena, SlotyVybavy.NIC);
     }
 
     @Override

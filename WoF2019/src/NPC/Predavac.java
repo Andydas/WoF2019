@@ -31,11 +31,33 @@ public class Predavac extends NPC{
     @Override
     public boolean pouziPrikazNPC(Prikaz prikaz, Hrac hrac) {
         switch(prikaz.getNazov()) {
-            case "ponuka":
-                this.ponuka();
+             case "ponuka": {
+                this.inventar.vypisItemy();
                 return true;
-            case "kup": 
+                }
+            case "kup": {
+                String nazovItemu = prikaz.getParameter();
+                Item nakupovany = this.inventar.getItem(nazovItemu);
+                if (nakupovany == null) {
+                    System.out.println("NPC nema item.");
+                    return true;
+                }
+                
+                Item temp = hrac.getInventar().getItem("ISIC");
+                if (temp instanceof ISIC) {
+                    ISIC isic = (ISIC)temp;
+                    int kredit = isic.getKredit();
+                    if (kredit < nakupovany.getCena()) {
+                        System.out.println("Nemas dost penazi.");
+                        return true;
+                    }
+                    isic.modifikujKredit(-nakupovany.getCena());
+                    hrac.getInventar().vlozItem(this.inventar.vyberItem(nazovItemu));
+                    return true;
+                }
+                System.out.println("ISIC nebol najdeny.");
                 return true;
+            }
             default:
                 return super.pouziPrikazNPC(prikaz, hrac);
         }
@@ -60,10 +82,9 @@ public class Predavac extends NPC{
         super.vypisPrikazyNPC(); 
     }
     
-    public void ponuka() {
-        this.inventar.vypisItemy();
-    }
     
+    
+    /*
     public boolean kup(Prikaz prikaz, Hrac hrac) {
         //isic, dost penazi, ci item existuje, pridat do inventara hraca(metoda clone)   
         int cena;
@@ -106,6 +127,6 @@ public class Predavac extends NPC{
         }
         return true;
 
-    }
+    }*/
             
 }

@@ -13,7 +13,7 @@ public class ISIC extends Item {
     private int kredit;
 
     public ISIC(String nazov, String popis, int cena, int kredit) {
-        super (nazov, popis, cena);
+        super (nazov, popis, cena, SlotyVybavy.NIC);
         this.kredit = kredit;
     }
 
