@@ -5,6 +5,7 @@ import Hra.Hra;
 import Hra.Miestnost;
 import Itemy.PortalGun;
 import NPC.NPC;
+import java.io.Serializable;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,7 +17,7 @@ import NPC.NPC;
  *
  * @author kajanek6
  */
-public class Hrac {
+public class Hrac implements Serializable {
     private Hra hra;
     private Miestnost aktualnaMiestnost;
     private Inventar inventar;

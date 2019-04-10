@@ -61,7 +61,7 @@ public class Sekera extends Item implements IPrikaz{
                 System.out.println("Dvere su uz davno rozbite.");
             } else { 
                 //zniz silu dveri
-                System.out.println("Uspesne si posteklil dvere.");
+                System.out.println("Uspesne si zatal do dveri.");
                 dvere.znizSiluMaterialu(sekera.getPoskodenie());
                 //pouzi sekeru
                 sekera.pouzi();

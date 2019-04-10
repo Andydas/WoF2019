@@ -1,4 +1,4 @@
-package Hra;
+ package Hra;
 
 
 import Dvere.IDvere;
@@ -9,6 +9,13 @@ import Itemy.PortalGun;
 import Itemy.Sekera;
 import Itemy.SlotyVybavy;
 import NPC.NPC;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Random;
 
@@ -43,8 +50,30 @@ public class Hra  {
      */
     public Hra() {
         this.mapa = new Mapa();
-        this.hrac = new Hrac(this, mapa.getMiestnost("terasa"));
-        this.parser = new Parser(hrac);
+        Miestnost miestnost = mapa.getMiestnost("terasa");
+        try {
+            InputStream input = new BufferedInputStream(new FileInputStream("playerData.save"));
+            //byte[] vstup = null;
+            String vstupnyNazovMiestnosti = "";
+            int returnVal = input.read();
+            while (returnVal > 0) {
+                // System.out.println(returnVal + "");
+                vstupnyNazovMiestnosti += (char) returnVal;
+                returnVal = input.read();
+            }
+            //input.read(vstup);
+            Miestnost nacitanaMiestnost = mapa.getMiestnost(vstupnyNazovMiestnosti);
+            if (nacitanaMiestnost != null) {
+                miestnost = nacitanaMiestnost;
+            } else {
+                System.out.println("Miestnost v subore nebola najdena.");
+            }
+            input.close();
+        } catch(IOException i) {
+            System.out.println("Load sa nepodaril.");
+        }
+        this.hrac = new Hrac(this, miestnost);
+        this.parser = new Parser(this.hrac);
     }
 
     /**
@@ -68,7 +97,14 @@ public class Hra  {
             Prikaz prikaz = this.parser.nacitajPrikaz();
             jeKoniec = this.vykonajPrikaz(prikaz);
         } while (!jeKoniec);
-        
+        try {
+            OutputStream output = new BufferedOutputStream(new FileOutputStream("playerData.save"));
+            output.write(this.hrac.getAktualnaMiestnost().getNazov().getBytes());
+            output.write(0);
+            output.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
         System.out.println("Maj sa fajn!");
     }
 
