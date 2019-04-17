@@ -6,7 +6,7 @@
 package Itemy;
 
 import Dvere.Portal;
-import Hra.Miestnost;
+import Miestnostii.Miestnost;
 import Hrac.Hrac;
 
 /**

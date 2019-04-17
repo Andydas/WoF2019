@@ -1,6 +1,7 @@
 package Hra;
 
 
+import Miestnostii.Miestnost;
 import Dvere.Dvere;
 import Dvere.IDvere;
 import Dvere.ISICDvere;
@@ -8,8 +9,11 @@ import Dvere.ZamykatelneDvere;
 import Itemy.Item;
 import Itemy.ISIC;
 import Itemy.Kluc;
+import Itemy.Navleky;
 import Itemy.PortalGun;
 import Itemy.Sekera;
+import Itemy.SlotyVybavy;
+import Miestnostii.PodmienenaMiestnost;
 import NPC.NPC;
 import NPC.Predavac;
 import java.util.HashMap;
@@ -41,7 +45,7 @@ public class Mapa {
         this.miestnosti.put(aula.getNazov(), aula);
         Miestnost bufet = new Miestnost("bufet", "ham ham");
         this.miestnosti.put(bufet.getNazov(), bufet);
-        Miestnost labak = new Miestnost("labak", "pocitacove laboratorium");
+        PodmienenaMiestnost labak = new PodmienenaMiestnost("labak", "pocitacove laboratorium", "navleky");
         this.miestnosti.put(labak.getNazov(), labak);
         Miestnost kancelaria = new Miestnost("kancelaria", "kancelaria spravcu pocitacoveho laboratoria");
         this.miestnosti.put(kancelaria.getNazov(), kancelaria);
@@ -149,7 +153,9 @@ public class Mapa {
         
         HashMap<String, Item> itemyBufetu = new HashMap<>();
         Item sekera = new Sekera("sekera", "Sekera urcena na sekanie.", 0, 2, 10);
+        Item navleky = new Navleky("navleky", "Dotrhane navleky ktore niekto odhodil na zem", 0, SlotyVybavy.NAVLEKY);
         itemyBufetu.put(sekera.getNazov(), sekera);
+        itemyBufetu.put(navleky.getNazov(), navleky);
         bufet.pridajItemy(itemyBufetu);
         
         //NPCcka

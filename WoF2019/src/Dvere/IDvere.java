@@ -5,7 +5,7 @@
  */
 package Dvere;
 
-import Hra.Miestnost;
+import Miestnostii.Miestnost;
 import Hrac.Hrac;
 
 /**

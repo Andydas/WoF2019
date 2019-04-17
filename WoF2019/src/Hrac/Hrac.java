@@ -2,7 +2,8 @@ package Hrac;
 
 import Itemy.Inventar;
 import Hra.Hra;
-import Hra.Miestnost;
+import Itemy.Item;
+import Miestnostii.Miestnost;
 import Itemy.PortalGun;
 import NPC.NPC;
 import java.io.Serializable;
@@ -77,4 +78,5 @@ public class Hrac implements Serializable {
     public void setAktualneNPC (NPC aktualneNPC) {
         this.aktualneNPC = aktualneNPC;
     }
+    
 }

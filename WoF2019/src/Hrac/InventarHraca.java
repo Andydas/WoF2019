@@ -48,4 +48,8 @@ public class InventarHraca extends Inventar{
         super.vypisItemy();
     }
     
+    public Item getItemVSlote (SlotyVybavy slot) {
+        return this.sloty[slot.ordinal()];
+    }
+    
 }

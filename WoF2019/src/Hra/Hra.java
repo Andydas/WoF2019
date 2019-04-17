@@ -1,6 +1,7 @@
  package Hra;
 
 
+import Miestnostii.Miestnost;
 import Dvere.IDvere;
 import Dvere.ZamykatelneDvere;
 import Hrac.Hrac;
@@ -283,12 +284,16 @@ public class Hra  {
         }
         // Pokus o opustenie aktualnej miestnosti danym vychodom.
         Miestnost novaMiestnost = dvere.dajDruhuMiestnost(hrac.getAktualnaMiestnost());
-
+        
+        
         if (novaMiestnost == null) {
             System.out.println("Tam nie je vychod!");
-        } else {
-            this.hrac.chodDoMiestnosti(novaMiestnost);
+            return;
+        } 
+        if (!novaMiestnost.skusVojst(hrac)) {
+            return;
         }
+        this.hrac.chodDoMiestnosti(novaMiestnost);
     }
 
     /** 
