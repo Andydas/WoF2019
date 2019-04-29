@@ -6,12 +6,13 @@
 package LinkedList;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  *
  * @author drzik2
  */
-public class List<T> {
+public class List<T> implements Iterable<T> {
     
     private Node<T> head;
     private Node<T> tail;
@@ -56,7 +57,26 @@ public class List<T> {
         if (node == null) {
             return null;
         }
-        T value = node.getValue();
+        this.remove(node);
+        return node.getValue();
+    }
+    
+    public boolean remove(T value) {
+        Node<T> temp = this.head;
+        while (temp != null) {
+            if (temp.getValue().equals(value))
+                break;
+            temp = temp.getRight();
+            
+        }
+        if (temp == null)
+        return false;
+        
+        this.remove(temp);
+        return true;
+    }
+    
+    public boolean remove(Node<T> node) {
         //je chvost
         if (node == this.tail) {
             Node<T> left = node.getLeft();
@@ -82,18 +102,7 @@ public class List<T> {
             right.setLeft(left);
         }
         --this.size;
-        return value;
-    }
-    
-    public boolean remove(T value) {
-        Node<T> temp = this.head;
-        while (temp != null) {
-            if (temp.getValue() == value)
-                break;
-            temp = temp.getRight();
-            
-        }
-        return false;
+        return true;
     }
     
     public Node<T> get(int index) {
@@ -125,9 +134,69 @@ public class List<T> {
         node.setValue(value);
     }
 
-    public int getSize() {
+    public int size() {
         return size;
     }
     
+    public void clear() {
+        Node<T> temp = this.head;
+        while (temp!= null) {
+            temp.setLeft(null);
+            temp = temp.getRight();
+        }
+        this.head = null;
+        this.tail = null;
+    }
     
+    public static void main(String[] args) {
+        List<Integer> zoznamCisel = new List<Integer>();
+        zoznamCisel.add(5);
+        zoznamCisel.add(10);
+        for (Integer integer : zoznamCisel) {
+            System.out.print(integer + " ");
+        }
+        //?/?????????
+        //for (Iterator<T> iter = zoznamCisel.iterator(); iter.hasNext();) {
+        //    Integer value = iter.next();
+        //}
+        assert zoznamCisel.size() == 2;
+        zoznamCisel.remove(5);
+        zoznamCisel.remove(new Integer(10)); //toto ak chcem vymazat podla value
+        assert zoznamCisel.size() == 0;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ListIterator(this.head, this);
+        
+    }
+    
+    class ListIterator implements Iterator<T> {
+
+        private Node<T> current;
+        private List<T> parent;
+
+        public ListIterator(Node<T> current, List<T> parent) {
+            this.current = current;
+            this.parent = parent;
+        }
+        
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public T next() {
+            T value = this.current.getValue();
+            this.current = this.current.getRight();
+            return value;
+        }
+
+        @Override
+        public void remove() {
+            this.parent.remove(current);
+        }
+        
+    }
 }
